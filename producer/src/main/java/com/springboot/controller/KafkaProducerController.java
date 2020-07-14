@@ -1,4 +1,4 @@
-package com.springboot.ctrl;
+package com.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,9 @@ public class KafkaProducerController {
 	@Autowired
 	private KafkaSender sender;
 	
-	@PostMapping
+	@PostMapping(consumes = "application/json")
 	public ResponseEntity<String> sendData(@RequestBody Student student){
+		System.out.println("student.getStudentId() = " + student.getStudentId());
 		sender.sendData(student);
 		return new ResponseEntity<>("Data sent to Kafka", HttpStatus.OK);
 	}
